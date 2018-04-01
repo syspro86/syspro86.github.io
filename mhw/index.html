@@ -117,29 +117,34 @@ function MHWController($scope, $http) {
         var scores = []
         for (var i = 0; i < $scope.keys.length; i++) scores.push(0)
 
-        var oldOrder = []
-        var newOrder = []
         $scope.selMonsters.forEach(function(monster) {
-            oldOrder.push(monster.weakness)
-            newOrder.push([])
             for (var i = 0; i < scores.length; i++) {
                 scores[i] += monster.diff * monster.diff * (monster.weakness[i] - 1.5)
             }
         })
 
+        var oldOrder = []
+        var newOrder = []
         var newKeys = []
+
+        $scope.monsters.forEach(function(monster) {
+            oldOrder.push(monster.weakness)
+            newOrder.push([])
+        })
+
         while (scores.length > 0) {
             var max = Math.max.apply(null, scores)
             var index = scores.indexOf(max)
             newKeys.push($scope.keys.splice(index, 1)[0])
 
             scores.splice(index, 1)
-            for (var i = 0; i < $scope.selMonsters.length; i++) {
+            for (var i = 0; i < $scope.monsters.length; i++) {
                 newOrder[i].push(oldOrder[i].splice(index, 1)[0])
             }
         }
         $scope.keys = newKeys
-        $scope.selMonsters.forEach(function(monster) {
+
+        $scope.monsters.forEach(function(monster) {
             monster.weakness = newOrder.shift()
         })
     }
