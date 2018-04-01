@@ -7,9 +7,9 @@
 <body ng-app="MHWApp" ng-controller="MHWController" ng-cloak>
     <md-content class="md-padding autocomplete" layout="column">
     토벌 몬스터
-    <md-chips ng-model="selMonsters" md-autocomplete-snap md-require-match="true" md-on-add="selMonstersAdded()" md-on-remove="selMonstersChanged()">
+    <md-chips ng-model="selMonsters" md-autocomplete-snap="width" md-require-match="true" md-on-add="selMonstersAdded()" md-on-remove="selMonstersChanged()">
         <md-autocomplete md-selected-item="selectedMonster" md-search-text="searchText"
-            md-items="item in searchMonster(searchText)" md-item-text="item.name">
+            md-items="item in searchMonster(searchText)" md-item-text="item.name" md-autoselect="true">
             {{item.name}}
         </md-autocomplete>
         <md-chip-template>
