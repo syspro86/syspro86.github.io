@@ -131,7 +131,7 @@ function MHWController($scope, $http) {
         while (scores.length > 0) {
             var max = Math.max.apply(null, scores)
             var index = scores.indexOf(max)
-            newKeys.push($scope.keyssplice(index, 1)[0])
+            newKeys.push($scope.keys.splice(index, 1)[0])
 
             scores.splice(index, 1)
             for (var i = 0; i < $scope.selMonsters.length; i++) {
