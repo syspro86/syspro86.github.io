@@ -119,7 +119,7 @@ function MHWController($scope, $http) {
 
         $scope.selMonsters.forEach(function(monster) {
             for (var i = 0; i < scores.length; i++) {
-                scores[i] += monster.diff * monster.diff * (monster.weakness[i] - 1.5)
+                scores[i] += monster.diff * monster.diff * (monster.weakness[i] - 1.7) * Math.abs(monster.weakness[i] - 1.7)
             }
         })
 
