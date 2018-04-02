@@ -20,7 +20,7 @@
 
     <md-list class="fixedRows" style="height: 20vh; overflow: auto">
         <md-subheader>몬스터</md-subheader>
-        <md-list-item ng-repeat="(index, monster) in monsters" ng-if="selMonsters.indexOf(monster.name) < 0">
+        <md-list-item ng-repeat="(index, monster) in monsters" ng-if="selMonsters | notContains:monster.name">
             <div class="md-list-item-text compact">
                 <h3>{{monster.name}}</h3>
             </div>
@@ -50,8 +50,15 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.8/angular-material.min.js"></script>
 
 <script>
-angular.module('MHWApp', ['ngMaterial', 'ngMessages'])
-.controller('MHWController', MHWController)
+var app = angular.module('MHWApp', ['ngMaterial', 'ngMessages'])
+app.controller('MHWController', MHWController)
+app.filter('notContains', function() {
+    return function(monsters, name) {
+        return monsters.findIndex(function(monster) {
+            return monster.name == name
+        }) == -1
+    }
+})
 
 function MHWController($scope, $http) {
     $scope.keys = /*난이도그룹,이름,*/ '불,물,번개,얼음,용,독,수면,마비,폭파,기절' .split(',')
