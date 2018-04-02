@@ -6,8 +6,8 @@
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.8/angular-material.min.css">
 </head>
 <body ng-app="MHWApp" ng-controller="MHWController" ng-cloak>
-    <md-content class="md-padding autocomplete" layout="column">
-    토벌 몬스터
+<md-content class="md-padding autocomplete" layout="column">
+    몬스터 검색
     <md-chips ng-model="selMonsters" md-autocomplete-snap="width" md-require-match="true" md-on-add="selMonstersAdded()" md-on-remove="selMonstersChanged()">
         <md-autocomplete md-selected-item="selectedMonster" md-search-text="searchText"
             md-items="item in searchMonster(searchText)" md-item-text="item.name" md-autoselect="true">
@@ -18,28 +18,23 @@
         </md-chip-template>
     </md-chips>
 
-    <md-list class="fixedRows" style="height: 20vh; overflow: auto">
-        <md-subheader>몬스터</md-subheader>
-        <md-list-item ng-repeat="(index, monster) in monsters" ng-if="selMonsters | notContains:monster.name">
-            <div class="md-list-item-text compact">
-                <h3>{{monster.name}}</h3>
-            </div>
-        </md-list-item>
-    </md-list>
-
     <div layout="row">
         <table flex>
-                <thead style="font-weight: bold">
-                    <td>몬스터</td>
-                    <td ng-repeat="key in keys">{{key}}</td>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="(index, monster) in selMonsters track by $index">
-                        <td>{{monster.name}}</td>
-                        <td ng-repeat="(windex, weak) in monster.weakness track by $index">{{weak}}</td>
-                    </tr>
-                </tbody>
-            </table>
+            <thead style="font-weight: bold">
+                <td>몬스터</td>
+                <td ng-repeat="key in keys">{{key}}</td>
+            </thead>
+            <tbody>
+                <tr ng-repeat="(index, monster) in selMonsters track by $index">
+                    <td>{{monster.name}}</td>
+                    <td ng-repeat="(windex, weak) in monster.weakness track by $index">{{weak}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <div layout="row" layout-wrap>
+        <md-button ng-repeat="(index, monster) in monsters" ng-if="!isSelectedMonster(monster)" class="md-raised" ng-click="addMonster(monster)">{{monster.name}}</md-button>
     </div>
 </md-content>
 
@@ -52,13 +47,6 @@
 <script>
 var app = angular.module('MHWApp', ['ngMaterial', 'ngMessages'])
 app.controller('MHWController', MHWController)
-app.filter('notContains', function() {
-    return function(monsters, name) {
-        return monsters.findIndex(function(monster) {
-            return monster.name == name
-        }) == -1
-    }
-})
 
 function MHWController($scope, $http) {
     $scope.keys = /*난이도그룹,이름,*/ '불,물,번개,얼음,용,독,수면,마비,폭파,기절' .split(',')
@@ -97,10 +85,16 @@ function MHWController($scope, $http) {
     ].map(function(data) {
         var weakness = data.split(',')
         return {
-            diff: weakness[0],
+            diff: Number(weakness[0]),
             name: weakness[1],
-            weakness: weakness.slice(2),
+            weakness: weakness.slice(2).map(function(str) { return Number(str) }),
         }
+    }).sort(function(mon1, mon2) {
+        /**/ if (mon1.diff < mon2.diff) { return 1 }
+        else if (mon1.diff > mon2.diff) { return -1 }
+        else if (mon1.name < mon2.name) { return -1 }
+        else if (mon1.name > mon2.name) { return 1 }
+        else { return 0 }
     })
 
     $scope.searchText = ''
@@ -113,6 +107,18 @@ function MHWController($scope, $http) {
         }) : []
     }
 
+    $scope.isSelectedMonster = function(monster) {
+        return $scope.selMonsters.findIndex(function(monster2) {
+            return monster.name == monster2.name
+        }) >= 0
+    }
+
+    $scope.addMonster = function(monster) {
+        if (!$scope.isSelectedMonster(monster)) {
+            $scope.selMonsters.push(monster)
+        }
+    }
+
     $scope.selMonstersAdded = function() {
         $scope.searchText = ''
         $scope.selMonstersChanged()
@@ -122,9 +128,10 @@ function MHWController($scope, $http) {
         var scores = []
         for (var i = 0; i < $scope.keys.length; i++) scores.push(0)
 
+        var weight = [-200, -150, 100, 125]
         $scope.selMonsters.forEach(function(monster) {
             for (var i = 0; i < scores.length; i++) {
-                scores[i] += monster.diff * monster.diff * Math.sqrt(monster.weakness[i])
+                scores[i] += monster.diff * monster.diff * weight[monster.weakness[i]]
             }
         })
 
