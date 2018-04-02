@@ -89,14 +89,13 @@ function MHWController($scope, $http) {
         '9,제노-지바,2,2,2,2,2,3,0,1,2,1',
     ]
 
-    $scope.monsters = []
-    rawdata.forEach(function(data) {
+    $scope.monsters = rawdata.map(function(data) {
         var weakness = data.split(',')
-        $scope.monsters.push({
+        return {
             diff: weakness[0],
             name: weakness[1],
             weakness: weakness.slice(2),
-        })
+        }
     })
 
     $scope.searchText = ''
