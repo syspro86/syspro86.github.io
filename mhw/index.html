@@ -116,6 +116,7 @@ function MHWController($scope, $http) {
     $scope.addMonster = function(monster) {
         if (!$scope.isSelectedMonster(monster)) {
             $scope.selMonsters.push(monster)
+            $scope.selMonstersChanged()
         }
     }
 
