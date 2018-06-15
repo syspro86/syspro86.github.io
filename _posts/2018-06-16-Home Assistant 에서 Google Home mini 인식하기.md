@@ -2,16 +2,16 @@
 layout: post
 title:  "Home Assistant 에서 Google Home mini 인식하기"
 date:   2018-06-16 01:09:00 +0900
-categories: home assistant
+categories: home_assistant
 ---
 
 1. `configuration.yaml` 파일 설정을 통한 자동 인식
 
+    아래 내용은 Home assistant 설치하면 자동으로 켜져 있지만 다시 한번 확인해보고 주석처리 되어있다면 해제한다.
+
     {% highlight yaml %}
     discovery:
     {% endhighlight %}
-
-    위 내용은 Home assistant 설치하면 자동으로 켜져 있지만 다시 한번 확인해보고 주석처리 되어있다면 해제한다.
 
 1. 기기명 변경 or `entity_registry.yaml` 변경
 
