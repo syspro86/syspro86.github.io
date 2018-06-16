@@ -26,7 +26,7 @@ categories: home_assistant
 
 `media_content_id` 부분에 mp3의 url 에 적으면 되는데 이후 sensor를 통해 url를 지정하게 되면
 
-`media_content_id: "{{ '{{' }} states.sensor.sensor_id.state }}}}"` 형태로 변경하면 된다.
+`media_content_id: "{{ '{{ states.sensor.sensor_id.state }}' }}"` 형태로 변경하면 된다.
 
 ## 팟캐스트의 최신 에피소드 mp3 url 적용하기
 
@@ -42,7 +42,7 @@ sensor:
   - platform: rest
     resource: https://api.rss2json.com/v1/api.json?rss_url=팟캐스트URL주소
     name: podcast_url
-    value_template: '{{ '{{' }} value_json["items"][0]["enclosure"]["link"] }}}}'
+    value_template: '{{ '{{ value_json["items"][0]["enclosure"]["link"] }}' }}'
 {% endhighlight %}
 
 이제 `sensor.podcast_url`은 가장 최신화의 mp3 경로를 표시하게 된다.
@@ -54,17 +54,17 @@ sensor:
   - platform: rest
     resource: https://api.rss2json.com/v1/api.json?rss_url=팟캐스트URL주소
     name: podcast_url
-    value_template: '{{ '{{' }} value_json["items"][0]["enclosure"]["link"] }}}}'
+    value_template: '{{ '{{ value_json["items"][0]["enclosure"]["link"] }}' }}'
     json_attributes:
       - items
   - platform: template
     sensors:
       podcast_url_2:
-        value_template: '{{ '{{' }} states.sensor.podcast_url.attributes["items"][1]["enclosure"]["link"] }}}}'
+        value_template: '{{ '{{ states.sensor.podcast_url.attributes["items"][1]["enclosure"]["link"] }}' }}'
   - platform: template
     sensors:
       podcast_url_3:
-        value_template: '{{ '{{' }} states.sensor.podcast_url.attributes["items"][2]["enclosure"]["link"] }}}}'
+        value_template: '{{ '{{ states.sensor.podcast_url.attributes["items"][2]["enclosure"]["link"] }}' }}'
 {% endhighlight %}
 
 이렇게 등록할 수 있다. platform: rest를 여러개 복사할 수도 있지만 그렇게 하면 api 콜만 늘어나서 느려진다
@@ -78,7 +78,7 @@ sensor의 값이 제대로 나오는 것을 확인했다면 다시 `scripts.yaml
   - service: media_player.play_media
     data_template:
       entity_id: "media_player.my_google_home_mini"
-      media_content_id: "{{ '{{' }} states.sensor.podcast_url.state }}}}"
+      media_content_id: "{{ '{{ states.sensor.podcast_url.state }}' }}"
       media_content_type: "audio/mp3"
 {% endhighlight %}
 
