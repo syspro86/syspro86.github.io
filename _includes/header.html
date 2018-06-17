@@ -14,6 +14,11 @@
       </a>
 
       <div class="trigger">
+        {% for my_category in site.categories %}
+          {% capture category_name %}{{ my_category | first }}{% endcapture %}
+          {% capture category_url %}category/{{ my_category | first }}.html{% endcapture %}
+          <a href="{{ category_url | prepend: site.baseurl }}">{{ category_name }}</a>
+        {% endfor %}
         {% for my_page in site.pages %}
           {% if my_page.title %}
           <a class="page-link" href="{{ my_page.url | prepend: site.baseurl }}">{{ my_page.title }}</a>
