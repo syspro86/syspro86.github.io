@@ -17,7 +17,7 @@ github_username: syspro86
 # Build settings
 markdown: kramdown
 
-theme: jekyll-theme-cayman
+#theme: jekyll-theme-cayman
 
 disqus_url: syspro86.disqus.com
 disqus_id: syspro86
@@ -28,4 +28,3 @@ timezone: "Asia/Seoul"
 sass:
   sass_dir: _sass
   style: compressed
-  
