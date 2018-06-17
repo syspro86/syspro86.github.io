@@ -52,7 +52,7 @@ telegram bot을 통해 google home mini에서 특정 url 을 재생시키거나 
   - service: media_player.play_media
     data_template:
       entity_id: "media_player.mymini"
-      media_content_id: "{{ param }}"
+      media_content_id: "{% raw %}{{ param }}{% endraw %}"
       media_content_type: "audio/mp3"
 'mini_set_volume':
   alias: mini set volume
@@ -60,7 +60,7 @@ telegram bot을 통해 google home mini에서 특정 url 을 재생시키거나 
   - service: media_player.volume_set
     data_template:
       entity_id: "media_player.mymini"
-      volume_level: "{{ param|int(0) / 100 }}"
+      volume_level: "{% raw %}{{ param|int(0) / 100 }}{% endraw %}"
 {% endhighlight %}
 
 텔레그램으로 부터 메시지를 받았을 때 두개의 서비스를 호출하도록 등록한다
@@ -79,12 +79,12 @@ telegram bot을 통해 google home mini에서 특정 url 을 재생시키거나 
     event_type: telegram_text
   action:
   - service_template: >
-      {% if trigger.event.data.text|int(-1) >= 0 and trigger.event.data.text|int(-1) <= 100 %}
+      {% raw %}{% if trigger.event.data.text|int(-1) >= 0 and trigger.event.data.text|int(-1) <= 100 %}{% endraw %}
       script.mini_set_volume
-      {% else %}
+      {% raw %}{% else %}{% endraw %}
       script.mini_play_url
-      {% endif %}
+      {% raw %}{% endif %}{% endraw %}
     data_template:
-      param: "{{ trigger.event.data.text }}"
+      param: "{% raw %}{{ trigger.event.data.text }}{% endraw %}"
 {% endhighlight %}
 
