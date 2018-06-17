@@ -24,3 +24,8 @@ disqus_id: syspro86
 
 permalink: /post/:year-:month-:day-:title.html
 timezone: "Asia/Seoul"
+
+sass:
+  sass_dir: _sass
+  style: compressed
+  
