@@ -21,3 +21,6 @@ theme: jekyll-theme-cayman
 
 disqus_url: syspro86.disqus.com
 disqus_id: syspro86
+
+permalink: /post/:year-:month-:day-:title.html
+timezone: "Asia/Seoul"
