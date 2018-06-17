@@ -21,3 +21,6 @@ github_username: syspro86
 markdown: kramdown
 
 theme: jekyll-theme-cayman
+
+disqus_url: syspro86.disqus.com
+disqus_id: syspro86
