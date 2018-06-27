@@ -18,8 +18,8 @@ categories: java eclipse
 
 위의 파일을 열어서 목록에 있는 포맷에 맞춰 정보를 추가하고 eclipse를 재시작한다.
 
-> org.apache.ant,1.9.6.v201510161327,plugins/org.apache.ant_1.9.6.v201510161327/,4,false  
-> *plugin id,버전,설치경로,4,false*
+* org.apache.ant,1.9.6.v201510161327,plugins/org.apache.ant_1.9.6.v201510161327/,4,false  
+* *plugin id,버전,설치경로,4,false*
 
 뒤의 4,false의 경우 정확한 값의 의미는 알 수 없지만 4,false 외에는 안보이기 때문에 그대로 적으면 될 것 같다
 
