@@ -6,6 +6,8 @@ categories: home_assistant
 permalink: /post/home_assistant.html
 ---
 
+전체 설정 정보: https://github.com/syspro86/home-assistant-config
+
 ## google home mini
 
 아래 내용은 Home assistant 설치하면 자동으로 켜져 있지만 다시 한번 확인해보고 주석처리 되어있다면 해제한다.
@@ -65,7 +67,7 @@ telegram_bot:
 
 ## 샤오미 공기 청정기
 
-공식 사이트 경로: https://www.home-assistant.io/components/vacuum.xiaomi_miio/#retrieving-the-access-token
+공식 설명 페이지 경로: https://www.home-assistant.io/components/vacuum.xiaomi_miio/#retrieving-the-access-token
 
 샤오미 제품을 등록하기 위해서는 장치의 token 값을 알아야 하며, 공기 청정기의 token 값은 miio 프로그램으로 확인할 수 있다.
 
@@ -88,6 +90,29 @@ fan:
 {% endhighlight %}
 
 등록하면 공기청정기를 제어(켜기/끄기/모드)가 가능하고, 습도,미세먼지 농도등을 가져올 수 있다.
+
+sensor 등록 예시
+
+{% highlight yaml %}
+- platform: template
+  sensors:
+    room_temperature:
+      friendly_name: '방 온도'
+      unit_of_measurement: '°C'
+      value_template: '{% raw %}{{ states.fan.xiaomi_miio_device.attributes.temperature }}{% endraw %}'
+    room_humidity:
+      friendly_name: '방 습도'
+      unit_of_measurement: '%'
+      value_template: '{% raw %}{{ states.fan.xiaomi_miio_device.attributes.humidity }}{% endraw %}'
+    room_aqi:
+      friendly_name: '방 미세먼지 농도'
+      unit_of_measurement: '㎍/㎥'
+      value_template: '{% raw %}{{ states.fan.xiaomi_miio_device.attributes.aqi }}{% endraw %}'
+    xiaomi_filter_life_remaining:
+      friendly_name: '공기청정기 필터 잔량'
+      unit_of_measurement: '%'
+      value_template: '{% raw %}{{ states.fan.xiaomi_miio_device.attributes.filter_life_remaining }}{% endraw %}'
+{% endhighlight %}
 
 
 ## 샤오미 로봇 청소기
@@ -112,6 +137,8 @@ vacuum:
 * 그 이후는 https://www.home-assistant.io/components/vacuum.xiaomi_miio/#retrieving-the-access-token 페이지의 OS별 방법을 따라하여 확인하면 된다
 
 * 윈도우의 경우 프로그램을 다운받아 추출하게끔 설명되어 있는데, 안드로이드 SDK가 설치 되어 있는 경우 Linux and Android (not rooted) 의 숫자 1번부터 따라해도 문제 없다 (3번 생략)
+
+* token 값을 얻은 후에는 MiHome을 최신버전으로 업데이트하여도 된다.
 
 
 ## telegram + google home mini
