@@ -63,6 +63,57 @@ telegram_bot:
 {% endhighlight %}
 
 
+## 샤오미 공기 청정기
+
+공식 사이트 경로: https://www.home-assistant.io/components/vacuum.xiaomi_miio/#retrieving-the-access-token
+
+샤오미 제품을 등록하기 위해서는 장치의 token 값을 알아야 하며, 공기 청정기의 token 값은 miio 프로그램으로 확인할 수 있다.
+
+* miio를 사용하려면 Node.js 가 설치되어 있어야 한다. (https://nodejs.org/ko/ 에서 설치)
+
+* `npm install -g miio` (miio 설치)
+
+* `miio discover`
+
+실행하면 같은 네트워크내에 있는 샤오미 장비들이 목록으로 표시된다.  
+그중 zhimi.airpurifier가 들어간 항목의 Token 값을 복사하면 된다.
+
+* `configuratoin.yaml` 내용에 추가한다
+
+{% highlight yaml %}
+fan:
+  - platform: xiaomi_miio
+    host: 192.168.x.x (공기청정기의 ip주소)
+    token: 공기청정기token값
+{% endhighlight %}
+
+등록하면 공기청정기를 제어(켜기/끄기/모드)가 가능하고, 습도,미세먼지 농도등을 가져올 수 있다.
+
+
+## 샤오미 로봇 청소기
+
+공기 청정기와 마찬가지로 장치의 token 값을 알아낸 후에 아래와 같이 등록할 수 있다.
+
+* `configuratoin.yaml` 내용에 추가한다
+
+{% highlight yaml %}
+vacuum:
+  - platform: xiaomi_miio
+    host: 192.168.x.x (로봇청소기의 ip주소)
+    token: 로봇청소기token값
+{% endhighlight %}
+
+하지만 miio 프로그램으로 token 값이 나오지 않는 경우가 있는데, 이 경우에는 MiHome 앱의 구버전을 설치하여 확인해야 한다.
+
+* https://www.apkmirror.com/apk/xiaomi-inc/mihome/mihome-5-0-0-release/ 링크로 부터 MiHome 앱을 다시 설치한다 (기존 앱 삭제)
+
+* 설치한 앱에 로봇 청소기를 연동한다
+
+* 그 이후는 https://www.home-assistant.io/components/vacuum.xiaomi_miio/#retrieving-the-access-token 페이지의 OS별 방법을 따라하여 확인하면 된다
+
+* 윈도우의 경우 프로그램을 다운받아 추출하게끔 설명되어 있는데, 안드로이드 SDK가 설치 되어 있는 경우 Linux and Android (not rooted) 의 숫자 1번부터 따라해도 문제 없다 (3번 생략)
+
+
 ## telegram + google home mini
 
 telegram bot을 통해 google home mini에서 특정 url 을 재생시키거나 볼륨을 제어하는 기능을 적용하는 스크립트이다
