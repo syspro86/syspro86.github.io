@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Eclipse 오류 workaround"
+title:  "Eclipse 오류 해결 정리"
 date:   2018-06-27 20:57:00 +0900
 categories: java eclipse
 ---
@@ -14,9 +14,15 @@ categories: java eclipse
 
 ## plugin 이 인식되지 않는 경우
 
+* eclipse -clean
+
+이클립스가 플러그인 설치 정보를 다시 인식하게 된다. 대부분 이 명령으로 해결할 수 있다.
+
+위 명령으로 인식되지 않을 경우 아래 파일을 직접 수정한다.
+
 * eclipse/configuration/org.eclipse.equinox.simpleconfigurator/bundles.info
 
-위의 파일을 열어서 목록에 있는 포맷에 맞춰 정보를 추가하고 eclipse를 재시작한다.
+목록에 있는 포맷에 맞춰 정보를 수정하고 eclipse를 재시작한다.
 
 * org.apache.ant,1.9.6.v201510161327,plugins/org.apache.ant_1.9.6.v201510161327/,4,false  
 * *plugin id,버전,설치경로,4,false*
