@@ -60,3 +60,12 @@ categories: java eclipse
 
 4. 다운받아진 폴더 전체를 zip으로 압축하여 플러그인을 설치하려는 환경에서 UpdateSite를 zip파일 아카이브로 등록하여 설치한다.
 
+## plugin update site를 통해 설치 중 오류 발생 시
+
+워크스페이스/.metadata/.log 내용 중
+
+    IBM\SDP\p2\org.eclipse.equinox.p2.engine\profileRegistry\bootProfile.profile\xxxx.profile.gz 프로파일을 구문 분석하는 중에 오류가 발생했습니다.
+
+내용이 있는 경우 해당파일을 삭제 후 RSA 재시작한다.
+
+
