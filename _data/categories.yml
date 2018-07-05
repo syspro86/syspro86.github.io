@@ -1,0 +1,6 @@
+- name: Java
+  path: java
+- name: Home Assistant
+  path: home-assistant
+- name: Docker
+  path: docker

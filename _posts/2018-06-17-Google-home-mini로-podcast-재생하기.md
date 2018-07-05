@@ -2,7 +2,7 @@
 layout: post
 title:  "Google home mini로 podcast 재생하기"
 date:   2018-06-17 02:53:00 +0900
-categories: home_assistant
+categories: home-assistant
 ---
 
 ## 특정 url의 mp3를 구글홈미니로 재생하기

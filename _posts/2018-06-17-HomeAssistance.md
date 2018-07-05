@@ -2,7 +2,7 @@
 layout: post
 title:  "Home Assistant (홈 어시스턴트) 설정 및 응용"
 date:   2018-06-17 21:52:00 +0900
-categories: home_assistant
+categories: home-assistant
 permalink: /post/home_assistant.html
 ---
 
