@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "TVHeadend + WinTV HVR955Q 지상파 시청 및 자동 녹화 구성하기"
+title:  "TVHeadend + TV 수신카드 (WinTV HVR955Q) 지상파 시청 및 자동 녹화 구성하기"
 date:   2018-07-15 22:00:00 +0900
 categories: home-server
 ---
