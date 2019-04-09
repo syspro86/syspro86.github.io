@@ -183,11 +183,11 @@ telegram bot을 통해 google home mini에서 특정 url 을 재생시키거나 
     event_type: telegram_text
   action:
   - service_template: >
-      \{% if trigger.event.data.text|int(-1) >= 0 and trigger.event.data.text|int(-1) <= 100 %\}
+      \{\% if trigger.event.data.text|int(-1) >= 0 and trigger.event.data.text|int(-1) <= 100 \%\}
       script.mini_set_volume
-      \{% else %\}
+      \{\% else \%\}
       script.mini_play_url
-      \{% endif %\}
+      \{\% endif \%\}
     data_template:
       param: "\{\{ trigger.event.data.text \}\}"
 ```
