@@ -99,19 +99,19 @@ sensor 등록 예시
     room_temperature:
       friendly_name: '방 온도'
       unit_of_measurement: '°C'
-      value_template: '{{ states.fan.xiaomi_miio_device.attributes.temperature }}'
+      value_template: '\{\{ states.fan.xiaomi_miio_device.attributes.temperature \}\}'
     room_humidity:
       friendly_name: '방 습도'
       unit_of_measurement: '%'
-      value_template: '{{ states.fan.xiaomi_miio_device.attributes.humidity }}'
+      value_template: '\{\{ states.fan.xiaomi_miio_device.attributes.humidity \}\}'
     room_aqi:
       friendly_name: '방 미세먼지 농도'
       unit_of_measurement: '㎍/㎥'
-      value_template: '{{ states.fan.xiaomi_miio_device.attributes.aqi }}'
+      value_template: '\{\{ states.fan.xiaomi_miio_device.attributes.aqi \}\}'
     xiaomi_filter_life_remaining:
       friendly_name: '공기청정기 필터 잔량'
       unit_of_measurement: '%'
-      value_template: '{{ states.fan.xiaomi_miio_device.attributes.filter_life_remaining }}'
+      value_template: '\{\{ states.fan.xiaomi_miio_device.attributes.filter_life_remaining \}\}'
 ```
 
 
@@ -156,7 +156,7 @@ telegram bot을 통해 google home mini에서 특정 url 을 재생시키거나 
   - service: media_player.play_media
     data_template:
       entity_id: "media_player.mymini"
-      media_content_id: "{{ param }}"
+      media_content_id: "\{\{ param \}\}"
       media_content_type: "audio/mp3"
 'mini_set_volume':
   alias: mini set volume
@@ -164,7 +164,7 @@ telegram bot을 통해 google home mini에서 특정 url 을 재생시키거나 
   - service: media_player.volume_set
     data_template:
       entity_id: "media_player.mymini"
-      volume_level: "{{ param|int(0) / 100 }}"
+      volume_level: "\{\{ param|int(0) / 100 \}\}"
 ```
 
 텔레그램으로 부터 메시지를 받았을 때 두개의 서비스를 호출하도록 등록한다
@@ -183,12 +183,12 @@ telegram bot을 통해 google home mini에서 특정 url 을 재생시키거나 
     event_type: telegram_text
   action:
   - service_template: >
-      {% if trigger.event.data.text|int(-1) >= 0 and trigger.event.data.text|int(-1) <= 100 %}
+      \{% if trigger.event.data.text|int(-1) >= 0 and trigger.event.data.text|int(-1) <= 100 %\}
       script.mini_set_volume
-      {% else %}
+      \{% else %\}
       script.mini_play_url
-      {% endif %}
+      \{% endif %\}
     data_template:
-      param: "{{ trigger.event.data.text }}"
+      param: "\{\{ trigger.event.data.text \}\}"
 ```
 
