@@ -2,7 +2,7 @@
 layout: post
 title:  "TVHeadend + TV 수신카드 (WinTV HVR955Q) 지상파 시청 및 자동 녹화 구성하기"
 date:   2018-07-15 22:00:00 +0900
-categories: home-server
+categories: home-assistant
 ---
 
 이 글은 케이블TV 가입 없이 TV수신카드와 디지털 안테만을 설치한 경우 TVheadend를 활용하는 방법을 정리한 글이다.
@@ -31,12 +31,12 @@ Ubuntu 18.04 LTS 가 설치된 NUC PC에 TV카드 + 안테나전원을 같이 �
 
 * `lsusb`
 
-{% highlight raw %}
+```
 Bus 002 Device 001: ID xxxx:xxxx Linux Foundation 3.0 root hub
 Bus 001 Device 002: ID xxxx:xxxx Hauppauge
 Bus 001 Device 001: ID xxxx:xxxx Linux Foundation 2.0 root hub
 ...
-{% endhighlight %}
+```
 
 목록에 Hauppauge 항목이 있어야 한다.
 
@@ -63,7 +63,7 @@ Bus 001 Device 001: ID xxxx:xxxx Linux Foundation 2.0 root hub
 
 * `sudo w_scan -fa -A1 -c KR -X`
 
-{% highlight raw %}
+```
 w_scan -fa -A1 -c KR -X 
 w_scan version 20170107 (compiled for DVB API 5.10)
 using settings for KOREA, REPUBLIC OF
@@ -105,7 +105,7 @@ MBC:473000000:VSB_8:17:20:1
 :665000000:VSB_8:17:20:1
 :665000000:VSB_8:33:36:2
 Done, scan time: 03:33.006
-{% endhighlight %}
+```
 
 마지막에 나타나는 MBC:473000000:VSB_8:17:20:1 와 같은 형태의 데이터가 중요하다
 
