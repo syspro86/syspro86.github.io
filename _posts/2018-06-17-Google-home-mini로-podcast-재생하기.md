@@ -11,7 +11,7 @@ categories: home-assistant
 
 * `scripts.yaml` 파일에 내용 추가
 
-{% highlight yaml %}
+```yaml
 'play_podcast':
   alias: 팟캐스트 재생
   sequence:
@@ -20,7 +20,7 @@ categories: home-assistant
       entity_id: "media_player.my_google_home_mini"
       media_content_id: "mp3 url"
       media_content_type: "audio/mp3"
-{% endhighlight %}
+```
 
 `'play_podcast'`는 임의로 지정하면 되고, 이후 자동화에서 `script.play_podcast` 의 형태로 사용한다.
 
@@ -37,19 +37,19 @@ categories: home-assistant
 
 * `configuration.yaml` 파일에 내용 추가
 
-{% highlight yaml %}
+```yaml
 sensor:
   - platform: rest
     resource: https://api.rss2json.com/v1/api.json?rss_url=팟캐스트URL주소
     name: podcast_url
     value_template: '{% raw %}{{ value_json["items"][0]["enclosure"]["link"] }}{% endraw %}'
-{% endhighlight %}
+```
 
 이제 `sensor.podcast_url`은 가장 최신화의 mp3 경로를 표시하게 된다.
 
 만약 최신의 3개 까지 표시 하고 싶다면
 
-{% highlight yaml %}
+```yaml
 sensor:
   - platform: rest
     resource: https://api.rss2json.com/v1/api.json?rss_url=팟캐스트URL주소
@@ -65,13 +65,13 @@ sensor:
     sensors:
       podcast_url_3:
         value_template: '{% raw %}{{ states.sensor.podcast_url.attributes["items"][2]["enclosure"]["link"] }}{% endraw %}'
-{% endhighlight %}
+```
 
 이렇게 등록할 수 있다. platform: rest를 여러개 복사할 수도 있지만 그렇게 하면 api 콜만 늘어나서 느려진다
 
 sensor의 값이 제대로 나오는 것을 확인했다면 다시 `scripts.yaml`를 수정한다.
 
-{% highlight yaml %}
+```yaml
 'play_podcast':
   alias: 팟캐스트 재생
   sequence:
@@ -80,7 +80,7 @@ sensor의 값이 제대로 나오는 것을 확인했다면 다시 `scripts.yaml
       entity_id: "media_player.my_google_home_mini"
       media_content_id: "{% raw %}{{ states.sensor.podcast_url.state }}{% endraw %}"
       media_content_type: "audio/mp3"
-{% endhighlight %}
+```
 
 이제 home assistant의 화면에서 '팟캐스트 재생' 버튼을 누르면 바로 구글홈미니를 통해 최신 에피소드를 들을 수 있다.
 
