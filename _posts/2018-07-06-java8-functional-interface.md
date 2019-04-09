@@ -21,17 +21,17 @@ Note that instances of functional interfaces can be created with lambda expressi
 
 * 인터페이스 내에 메서드를 1개만 선언하여 만들 수 있다.
 
-{% highlight java %}
+```java
 interface Adder {
     int add(int a, int b);
 }
-{% endhighlight %}
+```
 
 * FunctionalInterface 어노테이션을 지정하여 선언할 수 있다.
 * 어노테이션을 지정하게 되면 대상 타입이 인터페이스가 아니거나, 메서드가 2개이상일 경우 컴파일 에러를 발생시켜준다.
 * 어노테이션을 지정하지 않더라도 위 조건을 만족한다면, 함수형 인터페이스 취급을 한다.
 
-{% highlight java %}
+```java
 @FunctionalInterface
 interface Adder {
     int add(int a, int b);
@@ -50,19 +50,19 @@ class Calculator { // 클래스이므로 오류
         return a * b;
     }
 }
-{% endhighlight %}
+```
 
 * 인터페이스 내의 메서드가 Object 클래스의 메서드와 이름, 파라미터가 같다면 개수에 포함하지 않는다.
 * 인터페이스 내의 default 메서드도 개수에 포함되지 않는다.
 
-{% highlight java %}
+```java
 @FunctionalInterface
 interface Multiplier2 { // 컴파일 정상
     int multiply(int a, int b);
 
     String toString(); // Object의 메서드이므로 개수에 포함하지 않음
 }
-{% endhighlight %}
+```
 
 ## 기본으로 제공되는 함수형 인터페이스
 
