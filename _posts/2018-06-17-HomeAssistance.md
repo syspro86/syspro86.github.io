@@ -14,9 +14,9 @@ permalink: /post/home_assistant.html
 
 `configuration.yaml`
 
-{% highlight yaml %}
+```yaml
 discovery:
-{% endhighlight %}
+```
 
 Google Home mini 기기의 장치 이름이 한글로 되어있다면 Home Assistant에서 자동으로 entity id 를 부여하다가
 잘못된 이름을 부여하여 등록이 안되고 있을 가능성이 있다.
@@ -25,13 +25,13 @@ Google Home mini 기기의 장치 이름이 한글로 되어있다면 Home Assis
 
 혹은 기기 이름을 영문으로 변경 후 파일 내용을 전부 지우고 저장하면 영문명으로 인식된다
 
-{% highlight yaml %}
+```yaml
 media_player.mymini:
   config_entry_id:
   name:
   platform: cast
   unique_id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
-{% endhighlight %}
+```
 
 
 ## telegram
@@ -56,13 +56,13 @@ API_KEY와 chat_id를 얻는 절차는 아래와 같다
 
 `configuration.yaml`
 
-{% highlight yaml %}
+```yaml
 telegram_bot:
   - platform: polling
     api_key: API_KEY
     allowed_chat_ids:
       - CHAT_ID
-{% endhighlight %}
+```
 
 
 ## 샤오미 공기 청정기
@@ -82,37 +82,37 @@ telegram_bot:
 
 * `configuratoin.yaml` 내용에 추가한다
 
-{% highlight yaml %}
+```yaml
 fan:
   - platform: xiaomi_miio
     host: 192.168.x.x (공기청정기의 ip주소)
     token: 공기청정기token값
-{% endhighlight %}
+```
 
 등록하면 공기청정기를 제어(켜기/끄기/모드)가 가능하고, 습도,미세먼지 농도등을 가져올 수 있다.
 
 sensor 등록 예시
 
-{% highlight yaml %}
+```yaml
 - platform: template
   sensors:
     room_temperature:
       friendly_name: '방 온도'
       unit_of_measurement: '°C'
-      value_template: '{% raw %}{{ states.fan.xiaomi_miio_device.attributes.temperature }}{% endraw %}'
+      value_template: '{{ states.fan.xiaomi_miio_device.attributes.temperature }}'
     room_humidity:
       friendly_name: '방 습도'
       unit_of_measurement: '%'
-      value_template: '{% raw %}{{ states.fan.xiaomi_miio_device.attributes.humidity }}{% endraw %}'
+      value_template: '{{ states.fan.xiaomi_miio_device.attributes.humidity }}'
     room_aqi:
       friendly_name: '방 미세먼지 농도'
       unit_of_measurement: '㎍/㎥'
-      value_template: '{% raw %}{{ states.fan.xiaomi_miio_device.attributes.aqi }}{% endraw %}'
+      value_template: '{{ states.fan.xiaomi_miio_device.attributes.aqi }}'
     xiaomi_filter_life_remaining:
       friendly_name: '공기청정기 필터 잔량'
       unit_of_measurement: '%'
-      value_template: '{% raw %}{{ states.fan.xiaomi_miio_device.attributes.filter_life_remaining }}{% endraw %}'
-{% endhighlight %}
+      value_template: '{{ states.fan.xiaomi_miio_device.attributes.filter_life_remaining }}'
+```
 
 
 ## 샤오미 로봇 청소기
@@ -121,12 +121,12 @@ sensor 등록 예시
 
 * `configuratoin.yaml` 내용에 추가한다
 
-{% highlight yaml %}
+```yaml
 vacuum:
   - platform: xiaomi_miio
     host: 192.168.x.x (로봇청소기의 ip주소)
     token: 로봇청소기token값
-{% endhighlight %}
+```
 
 하지만 miio 프로그램으로 token 값이 나오지 않는 경우가 있는데, 이 경우에는 MiHome 앱의 구버전을 설치하여 확인해야 한다.
 
@@ -149,14 +149,14 @@ telegram bot을 통해 google home mini에서 특정 url 을 재생시키거나 
 
 `scripts.yaml`
 
-{% highlight yaml %}
+```yaml
 'mini_play_url':
   alias: mini mp3 재생
   sequence:
   - service: media_player.play_media
     data_template:
       entity_id: "media_player.mymini"
-      media_content_id: "{% raw %}{{ param }}{% endraw %}"
+      media_content_id: "{{ param }}"
       media_content_type: "audio/mp3"
 'mini_set_volume':
   alias: mini set volume
@@ -164,8 +164,8 @@ telegram bot을 통해 google home mini에서 특정 url 을 재생시키거나 
   - service: media_player.volume_set
     data_template:
       entity_id: "media_player.mymini"
-      volume_level: "{% raw %}{{ param|int(0) / 100 }}{% endraw %}"
-{% endhighlight %}
+      volume_level: "{{ param|int(0) / 100 }}"
+```
 
 텔레그램으로 부터 메시지를 받았을 때 두개의 서비스를 호출하도록 등록한다
 
@@ -175,7 +175,7 @@ telegram bot을 통해 google home mini에서 특정 url 을 재생시키거나 
 
 `automations.yaml`
 
-{% highlight yaml %}
+```yaml
 - id: telegram_ontext
   alias: telegram_ontext
   trigger:
@@ -183,12 +183,12 @@ telegram bot을 통해 google home mini에서 특정 url 을 재생시키거나 
     event_type: telegram_text
   action:
   - service_template: >
-      {% raw %}{% if trigger.event.data.text|int(-1) >= 0 and trigger.event.data.text|int(-1) <= 100 %}{% endraw %}
+      {% if trigger.event.data.text|int(-1) >= 0 and trigger.event.data.text|int(-1) <= 100 %}
       script.mini_set_volume
-      {% raw %}{% else %}{% endraw %}
+      {% else %}
       script.mini_play_url
-      {% raw %}{% endif %}{% endraw %}
+      {% endif %}
     data_template:
-      param: "{% raw %}{{ trigger.event.data.text }}{% endraw %}"
-{% endhighlight %}
+      param: "{{ trigger.event.data.text }}"
+```
 
