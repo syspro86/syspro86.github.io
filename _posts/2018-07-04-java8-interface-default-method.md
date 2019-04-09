@@ -2,7 +2,7 @@
 layout: post
 title:  "Java 8 interface default method"
 date:   2018-07-04 22:36:00 +0900
-categories: java
+categories: 
 ---
 
 > [상위글: java8 문법 정리]({{ site.url }}{{ site.baseurl }}/post/2018-07-04-java8-syntax.html)
