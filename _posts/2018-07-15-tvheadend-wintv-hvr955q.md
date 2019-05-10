@@ -42,18 +42,24 @@ Bus 001 Device 001: ID xxxx:xxxx Linux Foundation 2.0 root hub
 
 목록에 없는 경우 아래 명령어를 입력한 후 다시 lsusb로 확인한다.
 
-* `sudo modprobe cx231xx`
-* `sudo modprobe tveeprom`
-* `sudo modprobe cx25840`
-* `sudo modprobe /lib/firmware/v4l-cx231xx-avcore-01.fw`
+```
+sudo modprobe cx231xx
+sudo modprobe tveeprom
+sudo modprobe cx25840
+sudo modprobe /lib/firmware/v4l-cx231xx-avcore-01.fw
+```
 
 `/lib/firmware/v4l-cx231xx-avcore-01.fw` 파일이 없는 경우 찾아서 넣어야 한다. Ubuntu 18.04 LTS의 경우 기본으로 설치되어 있었다.
 
 나의 경우 바로 인식되어있지만, 계속 인식되지 않는다면 아래 명령어로 나오는 로그를 검색하여 해결하기 바란다.
 
-* `sudo dmesg -C`
+```
+sudo dmesg -C
+```
 * tv수신카드 usb 다시 연결
-* `sudo dmesg`
+```
+sudo dmesg
+```
 
 ### 채널 주파수 검색
 
@@ -61,7 +67,10 @@ Bus 001 Device 001: ID xxxx:xxxx Linux Foundation 2.0 root hub
 
 아래 명령어를 통해 본인의 환경에서 잡히는 주파수 정보를 얻을 수 있다.
 
-* `sudo w_scan -fa -A1 -c KR -X`
+```
+sudo apt install w-scan
+sudo w_scan -fa -A1 -c KR -X
+```
 
 ```
 w_scan -fa -A1 -c KR -X 
@@ -123,11 +132,13 @@ tvheadend의 가이드에 따라 docker가 아닌 ubuntu환경에 직접 설치 
 
 (버전별로 UI환경의 명칭이 다소 차이가 있다. 내가 설치한 버전은 HTS Tvheadend 4.3-1251~gf4ebe3389 이다.)
 
-* `wget -qO- https://doozer.io/keys/tvheadend/tvheadend/pgp | sudo apt-key add -`
-* `echo "deb http://apt.tvheadend.org/unstable bionic main" | sudo tee -a /etc/apt/sources.list.d/tvheadend.list`
-  * (ubuntu 18.04 = bionic,  ubuntu 16.04 = xenial)
-* `sudo apt-get update`
-* `sudo apt-get install tvheadend`
+```
+wget -qO- https://doozer.io/keys/tvheadend/tvheadend/pgp | sudo apt-key add -
+echo "deb http://apt.tvheadend.org/unstable bionic main" | sudo tee -a /etc/apt/sources.list.d/tvheadend.list
+(ubuntu 18.04 = bionic,  ubuntu 16.04 = xenial)
+sudo apt-get update
+sudo apt-get install tvheadend
+```
 
 설치 시에 관리자 계정 ID,PW를 입력하게 되고, 완료 후 서버가 바로 실행된다.
 
