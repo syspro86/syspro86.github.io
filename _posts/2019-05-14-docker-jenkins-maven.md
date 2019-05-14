@@ -2,7 +2,7 @@
 layout: post
 title:  "Docker + Jenkins + Maven 자동 빌드 구축하기"
 date:   2019-05-14 00:00:00 +0900
-categories: java
+categories: java docker
 ---
 
 # Jenkins 컨테이너 설치
