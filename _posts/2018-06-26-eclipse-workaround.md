@@ -76,5 +76,5 @@ eclipsec.exe -application org.eclipse.equinox.p2.metadata.repository.mirrorAppli
 
     IBM\SDP\p2\org.eclipse.equinox.p2.engine\profileRegistry\bootProfile.profile\xxxx.profile.gz 프로파일을 구문 분석하는 중에 오류가 발생했습니다.
 
-내용이 있는 경우 해당파일을 삭제 후 RSA 재시작한다.
+내용이 있는 경우 해당파일을 삭제 후 eclipse를 재시작한다.
 
