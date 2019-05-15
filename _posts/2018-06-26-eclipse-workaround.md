@@ -9,23 +9,31 @@ categories: java eclipse
 
 자바 프로젝트에서 참조하고 있는 jar 파일이 정상적인 파일임에도 cannot be read or is not a valid ZIP file 오류가 발생하며 빌드가 안되는 경우, 이클립스를 종료 한 후 워크스페이스 폴더 밑의 아래 두개 파일을 삭제한 후 이클립스를 재기동하면 해결된다.
 
-`.metadata\.plugins\org.eclipse.jdt.core\invalidArchivesCache`  
-`.metadata\.plugins\org.eclipse.jdt.core\nonChainingJarsCache`
+```
+.metadata\.plugins\org.eclipse.jdt.core\invalidArchivesCache  
+.metadata\.plugins\org.eclipse.jdt.core\nonChainingJarsCache
+```
 
 ## plugin 이 인식되지 않는 경우
 
-`eclipse -clean`
+```
+eclipse -clean
+```
 
 이클립스가 플러그인 설치 정보를 다시 인식하게 된다. 대부분 이 명령으로 해결할 수 있다.
 
 위 명령으로 인식되지 않을 경우 아래 파일을 직접 수정한다.
 
-`eclipse/configuration/org.eclipse.equinox.simpleconfigurator/bundles.info`
+```
+eclipse/configuration/org.eclipse.equinox.simpleconfigurator/bundles.info
+```
 
 목록에 있는 포맷에 맞춰 정보를 수정하고 eclipse를 재시작한다.
 
-    org.apache.ant,1.9.6.v201510161327,plugins/org.apache.ant_1.9.6.v201510161327/,4,false  
-    plugin id,버전,설치경로,4,false
+```
+org.apache.ant,1.9.6.v201510161327,plugins/org.apache.ant_1.9.6.v201510161327/,4,false  
+plugin id,버전,설치경로,4,false
+```
 
 뒤의 4,false의 경우 정확한 값의 의미는 알 수 없지만 4,false 외에는 안보이기 때문에 그대로 적으면 될 것 같다
 
@@ -44,13 +52,17 @@ https://dl.bintray.com/nodeclipse/nodeclipse/1.0.2f/
 
 2. cmd 명령을 통해 eclipse 설치된 곳으로 이동하여 아래 명령어 입력
 
-`eclipsec.exe -application org.eclipse.equinox.p2.artifact.repository.mirrorApplication -source https://dl.bintray.com/nodeclipse/nodeclipse/1.0.2f/ -destination D:\Nodeclipse`  
-`eclipsec.exe -application org.eclipse.equinox.p2.metadata.repository.mirrorApplication -source https://dl.bintray.com/nodeclipse/nodeclipse/1.0.2f/ -destination D:\Nodeclipse`
+```
+eclipsec.exe -application org.eclipse.equinox.p2.artifact.repository.mirrorApplication -source https://dl.bintray.com/nodeclipse/nodeclipse/1.0.2f/ -destination D:\Nodeclipse
+eclipsec.exe -application org.eclipse.equinox.p2.metadata.repository.mirrorApplication -source https://dl.bintray.com/nodeclipse/nodeclipse/1.0.2f/ -destination D:\Nodeclipse
+```
 
 즉 아래와 같이 실행하면 된다
 
-`eclipsec.exe -application org.eclipse.equinox.p2.artifact.repository.mirrorApplication -source 내려받을 사이트URL -destination 로컬경로`  
-`eclipsec.exe -application org.eclipse.equinox.p2.metadata.repository.mirrorApplication -source 내려받을 사이트URL -destination 로컬경로`
+```
+eclipsec.exe -application org.eclipse.equinox.p2.artifact.repository.mirrorApplication -source 내려받을 사이트URL -destination 로컬경로
+eclipsec.exe -application org.eclipse.equinox.p2.metadata.repository.mirrorApplication -source 내려받을 사이트URL -destination 로컬경로
+```
 
 3. eclipse 로고가 떴다가 사라지는데 cmd 명령창의 eclipse가 종료될때까지 기다린다.
 
