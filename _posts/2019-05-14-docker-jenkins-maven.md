@@ -37,7 +37,7 @@ docker run \
   jenkins/jenkins
 ```
 
-# github 계정 설정
+# github 계정 설정 (private 저장소인 경우에만 해당)
 
 1. Credentials > System > Global credentials > Add Credentials 메뉴 선택
 2. 개인키를 만들지 않은 경우
