@@ -173,13 +173,3 @@ sudo apt-get install tvheadend
 * Configuration > DBV Inputs > Services 화면으로 이동한다.
   * ![Image]({{ site.url }}{{ site.baseurl }}/assets/images/tvheadend/tvheadend(6).png){: height="400px"}
   * 지상파 채널별로 등록된 목록에서 맨왼쪽의 재생 버튼을 누르면 m3u 파일이 다운로드 되고 동영상 플레이어로 시청할 수 있다.
-
-## EPG를 통해 편성표 정보 등록하기
-
-![Image]({{ site.url }}{{ site.baseurl }}/assets/images/tvheadend/epg.png){: height="400px"}
-
-추가 예정
-
-## Kodi 를 통해 지상파 시청하기
-
-추가 예정
