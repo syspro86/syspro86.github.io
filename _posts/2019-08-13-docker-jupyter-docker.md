@@ -23,6 +23,9 @@ docker.list
 # docker 설치
 RUN apt-get update && yes | apt-get install pkg-config libssl-dev libsasl2-dev libcurl4-openssl-dev docker-
 ce
+
+# sudo를 사용할 수 있게 해준다.
+ENV GRANT_SUDO=yes
 ```
 
 # jupyter 시작
@@ -38,4 +41,12 @@ docker run -it --restart always -d \
 
 * `-v /var/run/docker.sock:/var/run/docker.sock` --> 안과 밖의 docker 를 연결
 
-컨테이너에 shell 접근하면 docker 연동이 되는데, 노트북 자체는 개인 계정으로 실행되기 때문에 노트북안에서 도커 사용이 안된다.. 방법 찾는중
+# jupyter 안에서 docker 사용
+
+jupyter에서 새로 노트북을 만들고 
+
+```
+!sudo docker ps
+```
+
+위 문장을 실행시켜서 목록이 나오면 이제 docker를 사용할 수 있다.
