@@ -48,6 +48,15 @@ docker run \
 * Username : github 계정
 * Private Key : (Enter directly, Add, 내용 복사) 
 
+# jdk 설정
+
+1. Global Tool Configuration 페이지
+2. JDK > JDK installations... 클릭
+3. Add JDK 클릭
+4. Name: java8
+5. JAVA_HOME: /usr/local/openjdk-8 입력 (도커 이미지에 포함되어 있다)
+6. Save 클릭
+
 # 프로젝트 생성
 
 1. 새로운 Item 선택
