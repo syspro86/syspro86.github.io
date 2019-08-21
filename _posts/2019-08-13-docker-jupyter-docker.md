@@ -43,6 +43,8 @@ docker run -it --restart always -d \
 
 # jupyter 안에서 docker 사용
 
+## 기능 동작 확인
+
 jupyter에서 새로 노트북을 만들고 
 
 ```
@@ -50,3 +52,22 @@ jupyter에서 새로 노트북을 만들고
 ```
 
 위 문장을 실행시켜서 목록이 나오면 이제 docker를 사용할 수 있다.
+
+## docker 이미지 생성
+
+![image](https://user-images.githubusercontent.com/31230327/63405070-80c67c80-c420-11e9-8079-9920ac322b7f.png)
+
+1. jupyter 안에서 폴더를 만들고 그 안에 Dockerfile 파일을 만들고 내용을 채운다.
+```
+FROM python
+RUN pip install requests pymongo # 필요에 따라 추가
+
+WORKDIR /app
+ADD main.py /app/
+
+CMD ["python", "main.py"]
+```
+2. 메인 소스파일 (예: main.py)를 만들고 내용을 채운다.
+3. 같은 폴더에 신규노트북을 만들고 `!sudo docker build -t syspro86/my-python-app .` 와 같이 입력하여 이미지를 생성한다.
+4. `!sudo docker run syspro86/my-python-app`를 입력하여 도커 컨테이너를 실행한다.
+
