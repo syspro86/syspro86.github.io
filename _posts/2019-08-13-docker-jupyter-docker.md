@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Docker사용하여 Jupyter 구축하고 그안에서 다시 Docker 사용하기"
+title:  "[Docker] Jupyter notebook 안에서 Docker 명령어 사용하기"
 date:   2019-08-13 00:00:00 +0900
 categories: docker jupyter
 ---

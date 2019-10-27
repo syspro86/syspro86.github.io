@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Docker + Jenkins + Maven 자동 빌드 구축하기"
+title:  "[Docker] Jenkins + Maven 자동 빌드 구축하기"
 date:   2019-05-14 00:00:00 +0900
 categories: java docker
 ---
