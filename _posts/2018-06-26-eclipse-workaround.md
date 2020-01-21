@@ -5,6 +5,15 @@ date:   2018-06-27 20:57:00 +0900
 categories: java eclipse
 ---
 
+## eclipse 기동 시 java was started but returned exit code = xxx 오류 발생
+
+* memory 설정이 잘못된 경우 (메모리 설정이 너무 큰 경우)
+  * eclipse.ini 내용중 -Xmx 사이즈를 줄인다.
+  
+* workspace cache 파일이 깨진 경우 (code -805306369)
+  * `eclipse -clean` 명령어로 실행한다.
+  * 위 명령어로도 안되면 workspace 폴더를 지우거나 옮기고 실행하여 새로 구성한다.
+
 ## cannot be read or is not a valid ZIP file 오류 해결 방법
 
 자바 프로젝트에서 참조하고 있는 jar 파일이 정상적인 파일임에도 cannot be read or is not a valid ZIP file 오류가 발생하며 빌드가 안되는 경우, 이클립스를 종료 한 후 워크스페이스 폴더 밑의 아래 두개 파일을 삭제한 후 이클립스를 재기동하면 해결된다.
