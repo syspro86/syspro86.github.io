@@ -4,3 +4,5 @@
   path: home-assistant
 - name: Docker
   path: docker
+- name: Home Server
+  path: home-server
