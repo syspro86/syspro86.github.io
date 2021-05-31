@@ -25,9 +25,30 @@ swapon -a
 cat /proc/sys/vm/swappiness
 ```
 
+#### UPS
+
+https://srackham.wordpress.com/2013/02/27/configuring-nut-for-the-eaton-3s-ups-on-ubuntu-linux/
+
 ### 스토리지
 
 - [LVM 볼륨 관리](/post/proxmox-lvm.html)
+
+- 디스크 SMART 정보
+
+```
+smartctl --all /dev/sdc
+```
+
+- 배드섹터 검사
+
+```
+badblocks -svw -b 4096 /dev/sdc
+
+-s 진행사항을 표시한다
+-v verbose
+-w write를 수행하며 테스트한다. (데이터 덮어씀). 읽기만 테스트하려면 -n
+-b 4096 블럭 사이즈를 지정한다. 기본 1024.
+```
 
 ### 장치 할당
 
@@ -39,4 +60,9 @@ cat /proc/sys/vm/swappiness
 ```
 pvecm expected 1
 # 1 대신 온라인 노드 수를 입력한다.
+```
+
+클러스터 노드 지우기
+```
+pvecm delnode nodename
 ```
