@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "Proxmox 서버 운영 - VM/Container에 USB 할당 (usb passthrough)"
-date:   2021-04-27 00:00:00 +0900
+title: "Proxmox - VM에 USB 할당 (usb passthrough)"
+date: 2021-04-27 00:00:00 +0900
 categories: home-server
 permalink: /post/proxmox-usb-passthrough.html
 ---
@@ -9,6 +9,7 @@ permalink: /post/proxmox-usb-passthrough.html
 ### LXC 컨테이너
 
 사용하려는 장치의 bus id, device id를 확인한다.
+
 ```
 root@pve9:~# lsusb
 Bus 002 Device 002: ID 1058:25e2 Western Digital Technologies, Inc. My Passport (WD40NMZW)
@@ -22,6 +23,7 @@ crw-rw-r-- 1 root root 189, 1 Dec  4 15:52 /dev/bus/usb/001/002
 ```
 
 ls 명령으로 나온 숫자 (189)를 확인하고 컨테이너 설정 파일에 내용을 추가한다.
+
 ```
 root@pve9:~# vi /etc/pve/lxc/146.conf
 
@@ -30,6 +32,7 @@ lxc.mount.entry: /dev/bus/usb/001/002 dev/bus/usb/001/002 none bind,optional,cre
 ```
 
 usb tv수신기를 추가하는 경우 /dev/dvb 하위에 있는 장치 정보를 추가로 작성한다.
+
 ```
 root@pve9:/dev/dvb/adapter0# ls -al
 total 0
@@ -47,6 +50,7 @@ lxc.mount.entry: /dev/dvb dev/dvb none bind,optional,create=dir
 ```
 
 작성내용중 두번째 나오는 경로는 /로 시작하지 않는 것에 주의해야 한다.
+
 ```
 lxc.mount.entry: /dev/bus/usb/001/002 dev/bus/usb/001/002 none bind,optional,create=file
 lxc.mount.entry: /dev/dvb dev/dvb none bind,optional,create=dir

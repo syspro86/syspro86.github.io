@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "Proxmox 서버 운영 - VM 디스크 사이즈 증가"
-date:   2021-05-31T21:57:00
+title: "Proxmox - VM 디스크 사이즈 증가"
+date: 2021-05-31T21:57:00
 categories: home-server
 permalink: /post/proxmox-extend-vm-disk.html
 ---
@@ -23,7 +23,7 @@ scsihw: virtio-scsi-pci
 root@pve:~# qm resize 121 scsi1 10T
   Size of logical volume hdd_vg/vm-121-disk-0 changed from 8.00 TiB (2097152 extents) to 10.00 TiB (2621440 extents).
   Logical volume hdd_vg/vm-121-disk-0 successfully resized.
-root@pve:~# 
+root@pve:~#
 ```
 
 ### VM 내부에서 파티션 크기 및 파일 시스템 크기 증가
@@ -33,16 +33,17 @@ root@pve:~#
 ```
 root@openmediavault:~# lsblk
 NAME   MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
-sda      8:0    0   20G  0 disk 
+sda      8:0    0   20G  0 disk
 ├─sda1   8:1    0   16G  0 part /
-├─sda2   8:2    0    1K  0 part 
+├─sda2   8:2    0    1K  0 part
 └─sda5   8:5    0    4G  0 part [SWAP]
-sdb      8:16   0   10T  0 disk 
+sdb      8:16   0   10T  0 disk
 └─sdb1   8:17   0    8T  0 part /srv/dev-disk-by-label-hard1
-sr0     11:0    1 1024M  0 rom  
+sr0     11:0    1 1024M  0 rom
 ```
 
 /dev/sdb1 를 최대 크기로 확장한다.
+
 ```
 root@openmediavault:~# fdisk /dev/sdb
 
@@ -58,9 +59,9 @@ Selected partition 1
 Partition 1 has been deleted.
 
 Command (m for help): n
-Partition number (1-128, default 1): 
-First sector (34-21474836446, default 2048): 
-Last sector, +/-sectors or +/-size{K,M,G,T,P} (2048-21474836446, default 21474836446): 
+Partition number (1-128, default 1):
+First sector (34-21474836446, default 2048):
+Last sector, +/-sectors or +/-size{K,M,G,T,P} (2048-21474836446, default 21474836446):
 
 Created a new partition 1 of type 'Linux filesystem' and of size 10 TiB.
 Partition #1 contains a ext4 signature.
@@ -75,6 +76,7 @@ Syncing disks.
 ```
 
 다음은 파티션 크기 증가인데, 왜인지 파일시스템 크기가 안늘어난다.
+
 ```
 root@openmediavault:~# resize2fs /dev/sdb1
 resize2fs 1.46.2 (28-Feb-2021)
@@ -82,6 +84,7 @@ The filesystem is already 2147483387 (4k) blocks long.  Nothing to do!
 ```
 
 parted 에서 다시 파티션 크기를 지정해준다.
+
 ```
 root@openmediavault:~# parted /dev/sdb
 GNU Parted 3.2
@@ -108,18 +111,19 @@ The filesystem on /dev/sdb1 is now 2684354299 (4k) blocks long.
 
 root@openmediavault:~# lsblk
 NAME   MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
-sda      8:0    0   20G  0 disk 
+sda      8:0    0   20G  0 disk
 ├─sda1   8:1    0   16G  0 part /
-├─sda2   8:2    0    1K  0 part 
+├─sda2   8:2    0    1K  0 part
 └─sda5   8:5    0    4G  0 part [SWAP]
-sdb      8:16   0   10T  0 disk 
+sdb      8:16   0   10T  0 disk
 └─sdb1   8:17   0   10T  0 part /srv/dev-disk-by-label-hard1
-sr0     11:0    1 1024M  0 rom 
+sr0     11:0    1 1024M  0 rom
 
 # sdb1도 10T로 확인.
 ```
 
 만약 파티션이 파일시스템이 아닌 LVM 파티션이라면 아래 작업을 추가해준다.
+
 ```
 kiho@ubuntu-54:/mnt$ sudo pvresize /dev/sdb1
   Physical volume "/dev/sdb1" changed
