@@ -5,7 +5,7 @@ date: 2021-04-27 00:00:00 +0900
 categories: home-server
 ---
 
-https://www.reddit.com/r/homelab/comments/b5xpua/the_ultimate_beginners_guide_to_gpu_passthrough/
+원본글: https://www.reddit.com/r/homelab/comments/b5xpua/the_ultimate_beginners_guide_to_gpu_passthrough/
 
 ### PVE 에서 설정
 
