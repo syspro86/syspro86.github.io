@@ -14,7 +14,7 @@ title: Categories
 
       {% for post in site.categories[category.path] %}
       <li>
-        <span class="post-meta">{{ post.date | date: "%Y/%m/%-d" }}</span>
+        <span class="post-meta">{{ post.date | date: "%Y/%m/%d" }}</span>
         <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
       </li>
       {% if forloop.index >= 5 %}
