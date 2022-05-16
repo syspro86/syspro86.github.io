@@ -5,11 +5,9 @@ layout: default
 
 <ul class="post-list">
   {% for post in site.categories[page.title] %}
-  <ul>
-    <h4 class="post-meta">{{ post.date | date: "%Y/%m/%d" }}</h4>
-    <h2>
-      <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-    </h2>
-  </ul>
+  <h4 class="post-meta">{{ post.date | date: "%Y/%m/%d" }}</h4>
+  <h2>
+    <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+  </h2>
   {% endfor %}
 </ul>
