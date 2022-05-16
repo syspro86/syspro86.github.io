@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Proxmox - VM에 GPU 할당 (GPU Passthrough)"
-date: 2021-04-27 00:00:00 +0900
+date: 2022-05-16 00:00:00 +0900
 categories: home-server
 ---
 
