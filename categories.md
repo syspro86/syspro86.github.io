@@ -1,23 +1,27 @@
 ---
-layout: page
+layout: default
 permalink: /categories/
 title: Categories
 ---
+<div class="home">
+  <h1 class="page-heading">Categories / <a href="..">Posts</a></h1>
+  <ul class="post-list">
+    {% for category in site.data.categories %}
+    <div class="archive-group">
+      <h2>
+        <a href="{{ site.baseurl }}/categories/{{ category.path }}" class="category-head">{{ category.name | slugize }}</a>
+      </h2>
 
-<div id="archives">
-{% for category in site.categories %}
-  <div class="archive-group">
-    {% capture category_name %}{{ category | first }}{% endcapture %}
-    <div id="#{{ category_name | slugize }}"></div>
-    <p></p>
-    
-    <h3 class="category-head">{{ category_name }}</h3>
-    <a name="{{ category_name | slugize }}"></a>
-    {% for post in site.categories[category_name] %}
-    <article class="archive-item">
-      <h4><a href="{{ site.baseurl }}{{ post.url }}">{{post.title}}</a></h4>
-    </article>
+      {% for post in site.categories[category.path] %}
+      <li>
+        <span class="post-meta">{{ post.date | date: "%Y/%m/%-d" }}</span>
+        <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+      </li>
+      {% if forloop.index >= 5 %}
+      {%   break %}
+      {% endif %}
+      {% endfor %}
+    </div>
     {% endfor %}
-  </div>
-{% endfor %}
+  </ul>
 </div>

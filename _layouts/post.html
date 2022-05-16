@@ -5,7 +5,15 @@ layout: default
 
   <header class="post-header">
     <h1 class="post-title" itemprop="name headline">{{ page.title }}</h1>
-    <p class="post-meta"><time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">{{ page.date | date: "%b %-d, %Y" }}</time>{% if page.author %} • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">{{ page.author }}</span></span>{% endif %}</p>
+    <p class="post-meta"><time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">{{ page.date | date: "%Y/%m/%-d" }}</time>
+
+    <p>
+      분류: 
+    {% for category in page.categories %}
+    <a href="{{ site.baseurl }}/categories/{{ category }}" class="category-head">{{ category | slugize }}</a>
+    {% endfor %}
+    </p>
+    <hr>
   </header>
 
   <div class="post-content" itemprop="articleBody">
@@ -14,12 +22,12 @@ layout: default
 
   <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
   <ins class="adsbygoogle"
-       style="display:block"
-       data-ad-client="ca-pub-5753827143094664"
-       data-ad-slot="6403137348"
-       data-ad-format="auto"></ins>
+    style="display:block"
+    data-ad-client="ca-pub-5753827143094664"
+    data-ad-slot="6403137348"
+    data-ad-format="auto"></ins>
   <script>
-  (adsbygoogle = window.adsbygoogle || []).push({});
+    (adsbygoogle = window.adsbygoogle || []).push({});
   </script>
 
   {% include disqus_comments.html %}
