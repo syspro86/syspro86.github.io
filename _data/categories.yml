@@ -1,8 +1,10 @@
+- name: Home Server
+  path: home-server
 - name: Java
   path: java
 - name: Home Assistant
   path: home-assistant
 - name: Docker
   path: docker
-- name: Home Server
-  path: home-server
+- name: Etc
+  path: etc

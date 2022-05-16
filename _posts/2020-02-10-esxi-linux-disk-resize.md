@@ -1,8 +1,9 @@
 ---
 layout: post
-title:  "ESXi + Linux 디스크 용량 증설"
-date:   2020-02-10 00:00:00 +0900
-categories: esxi vmware linux
+title: "ESXi + Linux 디스크 용량 증설"
+date: 2020-02-10 00:00:00 +0900
+categories: home-server
+tags: esxi vmware linux
 ---
 
 esxi + linux + docker 환경을 계속 사용하며 이미지를 계속 만들다보니 금새 디스크 용량이 다 차버리게 되어,
@@ -11,10 +12,9 @@ esxi + linux + docker 환경을 계속 사용하며 이미지를 계속 만들�
 
 전체적인 순서는 아래와 같다.
 
-* 가상 디스크 용량 증설
-* 파티션 크기 증설
-* 파일시스템 크기 조정
-
+- 가상 디스크 용량 증설
+- 파티션 크기 증설
+- 파일시스템 크기 조정
 
 ## 가상 디스크 용량 증설
 
@@ -33,10 +33,10 @@ kiho@ubuntu-worker2:~$ lsblk
 NAME   MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
 loop0    7:0    0 89.1M  1 loop /snap/core/8213
 loop1    7:1    0 89.1M  1 loop /snap/core/8268
-sda      8:0    0  100G  0 disk 
-├─sda1   8:1    0    1M  0 part 
+sda      8:0    0  100G  0 disk
+├─sda1   8:1    0    1M  0 part
 └─sda2   8:2    0   40G  0 part /
-sr0     11:0    1 1024M  0 rom  
+sr0     11:0    1 1024M  0 rom
 
 kiho@ubuntu-worker2:~$ df -h
 Filesystem      Size  Used Avail Use% Mounted on
@@ -54,7 +54,7 @@ tmpfs           1.5G     0  1.5G   0% /run/user/1000
 parted 를 통해 파티션 크기를 늘려주어야 하는데, 대상 파티션이 다른 파티션 사이에 껴있으면 뒤쪽 파티션을 이동시켜야하기 때문에 켠 상태로는 작업이 불가능하다.
 이 번 경우는 boot 파티션(sda1), root 파티션(sda2) 두가지 밖에 사용하지 않기 때문에 쉽게 늘릴 수 있었다.
 
-* 우선 parted를 실행한다. `sudo parted`
+- 우선 parted를 실행한다. `sudo parted`
 
 ```
 kiho@ubuntu-worker2:~$ sudo parted
@@ -63,23 +63,23 @@ Using /dev/sda
 Welcome to GNU Parted! Type 'help' to view a list of commands.
 ```
 
-* `print` 입력하여 현재 파티션 목록을 확인한다.
+- `print` 입력하여 현재 파티션 목록을 확인한다.
 
-```                                                           
+```
 (parted) print
 Model: VMware Virtual disk (scsi)
 Disk /dev/sda: 107GB
 Sector size (logical/physical): 512B/512B
 Partition Table: gpt
-Disk Flags: 
+Disk Flags:
 
 Number  Start   End     Size    File system  Name  Flags
  1      1049kB  2097kB  1049kB                     bios_grub
  2      2097kB  42.9GB  42.9GB  ext4
 ```
 
-* 증설하려는 파티션은 2번이다. (42.9GB의 ext4파티션)
-* `resizepart 2` 를 입력하고 파티션의 변경할 끝지점을 입력한다. (디스크가 107GB로 인식되어 107GB를 입력했다.)
+- 증설하려는 파티션은 2번이다. (42.9GB의 ext4파티션)
+- `resizepart 2` 를 입력하고 파티션의 변경할 끝지점을 입력한다. (디스크가 107GB로 인식되어 107GB를 입력했다.)
 
 ```
 (parted) resizepart 2
@@ -89,24 +89,24 @@ Yes/No? y
 End?  [42.9GB]? 107GB
 ```
 
-* `q`를 입력하여 종료한다.
+- `q`를 입력하여 종료한다.
 
 ```
 (parted) q
 Information: You may need to update /etc/fstab.
 ```
 
-* `lsblk` 명령어로 파티션 크기를 확인한다. (99.7G)
+- `lsblk` 명령어로 파티션 크기를 확인한다. (99.7G)
 
 ```
 kiho@ubuntu-worker2:~$ lsblk
 NAME   MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
 loop0    7:0    0 89.1M  1 loop /snap/core/8213
 loop1    7:1    0 89.1M  1 loop /snap/core/8268
-sda      8:0    0  100G  0 disk 
-├─sda1   8:1    0    1M  0 part 
+sda      8:0    0  100G  0 disk
+├─sda1   8:1    0    1M  0 part
 └─sda2   8:2    0 99.7G  0 part /
-sr0     11:0    1 1024M  0 rom  
+sr0     11:0    1 1024M  0 rom
 ```
 
 ## 파일시스템 크기 조정
@@ -127,7 +127,7 @@ tmpfs           7.4G     0  7.4G   0% /sys/fs/cgroup
 tmpfs           1.5G     0  1.5G   0% /run/user/1000
 ```
 
-* `resize2fs /dev/sda2` 를 입력하여 파일시스템 크기를 자동 조정한다. (파티션 크기에 맞게)
+- `resize2fs /dev/sda2` 를 입력하여 파일시스템 크기를 자동 조정한다. (파티션 크기에 맞게)
 
 ```
 kiho@ubuntu-worker2:~$ sudo resize2fs /dev/sda2
