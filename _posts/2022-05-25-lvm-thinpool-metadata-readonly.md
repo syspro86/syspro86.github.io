@@ -24,6 +24,16 @@ root@pve:~# lvs
 thinpool의 attr 정보에 c (thinpool check needed), M (metadata read only) 값이 확인된다. 
 즉 metadata data only로 인해 신규 블록 할당이 불가한 상태이다.
 
+```
+root@pve:~# dmesg
+[  518.928072] device-mapper: thin: Data device (dm-5) discard unsupported: Disabling discard passdown.
+[  518.928129] device-mapper: thin: 253:14: unable to switch pool to write mode until repaired.
+[  518.928151] device-mapper: thin: 253:14: switching pool to read-only mode
+[  518.928152] device-mapper: thin: 253:14: unable to grow the data device until repaired.
+```
+
+커널 메시지에 pool 을 수리하기 전까지 read only 모드로 전환한다는 내용이 있다.
+
 ---
 ### lvs 의 결과에서 thinpool의 Meta% 사용도가 100%에 가깝다면 메타데이터 크기를 키워서 해결할 수 있다.
 
