@@ -63,3 +63,64 @@ reset
   - Primary GPU: X
   - Rom-BAR: 체크
   - PCI-Express: 체크
+
+### Win10 UEFI 로 설치하기
+
+- General
+  - Name: win10
+- OS
+  - ISO image: ..
+  - Guest OS Type : Win10/2016/2019
+- System
+  - Machine: q35
+  - BIOS: OVMF
+  - Add EFI Disk: check
+  - EFI Storage: local-lvm
+- Disks
+  - Bus/Device: SATA
+- CPU
+  - Type: host
+
+부팅 후 윈도우 설치 진행. 설치완료 후 VM 종료
+
+- Hardware - Add - PCI Device - GPU 선택
+  - All Function: 체크
+  - Primary GPU: X
+  - Rom-BAR: 체크
+  - PCI-Express: 체크
+
+GPU ROM dump
+```
+cd /sys/bus/pci/devices/0000:08:00.0/
+echo 1 > rom
+cat rom > /tmp/image.rom
+echo 0 > rom
+```
+
+ROM 파일 수정
+```
+git clone https://github.com/Matoking/NVIDIA-vBIOS-VFIO-Patcher
+cd NVIDIA-vBIOS-VFIO-Patcher
+python nvidia_vbios_vfio_patcher.py -i /tmp/image.rom -o /tmp/image.pached.rom --disable-footer-strip
+cp /tmp/image.pached.rom /usr/share/kvm/gpu.pached.rom
+```
+
+qemu conf 수정 (/etc/pve/qemu-server/xxx.conf)
+```
+cpu: host,hidden=1
+hostpci0: 0000:08:00,pcie=1,romfile=gpu.patched.rom
+```
+
+
+### 오류 해결
+
+#### vfio-pci 0000:08:00.0: BAR 3: can't reserve [mem 0xf0000000-0xf1ffffff 64bit pref]
+
+장치를 제거한 후 다시 검색하여 추가한다.
+
+```
+echo 1 > /sys/bus/pci/devices/0000\:08\:00.0/remove
+echo 1 > /sys/bus/pci/rescan
+```
+
+필요 시 crontab에 @reboot 로 추가하여 실행.
