@@ -64,6 +64,7 @@ categories: home-server
 ![Image]({{ site.url }}{{ site.baseurl }}/assets/images/20220603/crontab.png){: width="100%"}
 
 - vm 156 에만 누락된 crontab 작업을 추가하였다.
+- 누락된 작업은 docker prune 및 커널 로그 정리를 통한 디스크 공간 확보 작업임
 
 ![Image]({{ site.url }}{{ site.baseurl }}/assets/images/20220603/156_disk_usage_2.png){: width="100%"}
 
@@ -83,6 +84,6 @@ categories: home-server
 
 정확한 원인은 찾지 못 했지만
 
-- (팩트) 문제의 vm에만 누락되었던 crontab 스케줄을 추가하였고
+- (팩트) 문제의 vm에만 누락되었던 디스크 공간 확보용 crontab 스케줄을 추가하였고
 
 이후 오류 없이 동작하고 있다.
