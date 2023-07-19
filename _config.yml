@@ -22,3 +22,5 @@ timezone: "Asia/Seoul"
 remote_theme: pages-themes/primer
 plugins:
   - jekyll-remote-theme
+
+future: true
