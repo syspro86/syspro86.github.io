@@ -110,4 +110,4 @@ kiho@bionic:~$
 
 https://kb.synology.com/tr-tr/DSM/tutorial/How_can_I_recover_data_from_my_DiskStation_using_a_PC
 
-https://www.reddit.com/r/synology/comments/u6y5qm/has_anyone_found_a_solution_for_mounting_synology/?utm_source=share&utm_medium=android_app&utm_name=androidcss&utm_term=1&utm_content=1
+https://www.reddit.com/r/synology/comments/u6y5qm/has_anyone_found_a_solution_for_mounting_synology
