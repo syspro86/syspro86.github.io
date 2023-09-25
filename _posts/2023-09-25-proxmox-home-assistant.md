@@ -105,7 +105,7 @@ http:
   use_x_frame_options: false
 ```
 
-- cloudflare ddns proxy 를 사용할 경우, 그외 접근을 차단한다. (cloudflare ip 대역 + 공유기대역, docker, kubernetes)
+- cloudflare dns proxy 를 사용할 경우, 그외 접근을 차단한다. (cloudflare ip 대역 + 공유기대역, docker, kubernetes)
 
 ```
 http:
