@@ -71,6 +71,7 @@ VM 을 생성한 후, 초기 부팅 시 BIOS 옵션을 수정해야 한다.
 
 ![Image]({{ site.url }}{{ site.baseurl }}/assets/images/proxmox-gpu-ubuntu/boot1.png){: width="100%"}
 
+- VM 을 켜자마자 ESC 를 연타하면 위 화면이 나온다.
 - Device Manager ->  Secure Boot Configuration -> Attempt Secure Boot 에서 Spacebar 를 눌러 체크 해제 한다.
 - F10 -> Y 눌러 저장한 뒤, Esc Esc -> Reset 으로 재부팅한다.
 
