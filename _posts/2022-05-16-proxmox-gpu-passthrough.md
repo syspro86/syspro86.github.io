@@ -55,39 +55,43 @@ update-initramfs -u
 reset
 ```
 
-이후 GPU 를 사용할 VM 설정
-
-- machine 유형을 q35로 설정
-- Hardware - Add - PCI Device - GPU 선택
-  - All Function: 체크
-  - Primary GPU: X
-  - Rom-BAR: 체크
-  - PCI-Express: 체크
-
 ### Win10 UEFI 로 설치하기
 
 - General
   - Name: win10
 - OS
-  - ISO image: ..
+  - ISO image: windows10.iso
   - Guest OS Type : Win10/2016/2019
 - System
   - Machine: q35
   - BIOS: OVMF
   - Add EFI Disk: check
   - EFI Storage: local-lvm
+  - Pre-Enroll keys: 체크해제
 - Disks
-  - Bus/Device: SATA
-- CPU
-  - Type: host
+  - 기본
 
-부팅 후 윈도우 설치 진행. 설치완료 후 VM 종료
+부팅 후 윈도우 설치 진행. 윈도우 업데이트 22H2 까지 완료 후 VM 종료.
 
 - Hardware - Add - PCI Device - GPU 선택
-  - All Function: 체크
+  - All Function: 체크 (체크하지 않으면 오디오 장치가 잡히지 않음)
   - Primary GPU: X
   - Rom-BAR: 체크
   - PCI-Express: 체크
+
+윈도우 기동 후, NVIDIA driver 설치. 원격 접속 환경 설정 steam link 혹은 parsec 까지 설치.
+
+윈도우 VM 종료 후, GPU PCI Device 의 Primary GPU 체크 적용한 후 VM 기동.
+
+Hardware 옵션 중 Display를 none으로 바꾸면 proxmox host가 재부팅되는 현상이 있어 Default 값 유지함.
+
+### Win10 UEFI 설치 Disk 를 SCSI 방식으로 사용하려면 (선택사항)
+
+설치를 위해 VM 기동하기 전에 CD/DVD Drvie를 하나 더 추가하고 virtio-win iso 파일을 지정해준다.
+
+윈도우 설치 중 디스크를 찾지 못하면 virtio iso 내에 vioscsi/w10/amd64 폴더를 지정하여 드라이버를 설치하면 디스크가 인식된다.
+
+### GPU ROM 수정/지정하기 (선택사항)
 
 GPU ROM dump
 ```
@@ -110,7 +114,6 @@ qemu conf 수정 (/etc/pve/qemu-server/xxx.conf)
 cpu: host,hidden=1
 hostpci0: 0000:08:00,pcie=1,romfile=gpu.patched.rom
 ```
-
 
 ### 오류 해결
 
