@@ -72,7 +72,7 @@ root@pve:/var/lib/vz/images#
 
 ![Image]({{ site.url }}{{ site.baseurl }}/assets/images/proxmox-haos/vm6.png){: width="100%"}
 
-- Options 화면에서 Boot Order 를 기존 항목 모두 체크하고, 방금 추가한 scsi0 만 체크해준다.
+- Options 화면에서 Boot Order 를 기존 항목 모두 체크 해제하고, 방금 추가한 scsi0 만 체크해준다.
 
 ## VM 시작
 
