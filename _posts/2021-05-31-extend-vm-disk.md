@@ -122,6 +122,13 @@ sr0     11:0    1 1024M  0 rom
 # sdb1도 10T로 확인.
 ```
 
+btrfs인 경우
+
+```
+root@openmediavault:/srv/dev-disk-by-label-hard1# btrfs filesystem resize max .
+Resize device id 1 (/dev/sdb1) from 8.00TiB to max
+```
+
 만약 파티션이 파일시스템이 아닌 LVM 파티션이라면 아래 작업을 추가해준다.
 
 ```
